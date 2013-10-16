@@ -1,0 +1,11 @@
+- name: restart supervisor
+  sudo: True
+  service: name=supervisor state=restarted
+
+- name: start supervisor
+  sudo: True
+  service: name=supervisor state=started
+
+- name: stop supervisor
+  sudo: True
+  service: name=supervisor state=stopped

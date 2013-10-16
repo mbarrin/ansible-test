@@ -1,0 +1,7 @@
+vars_files:
+  - .awsvars.yml
+- include: logstashmaster.yml
+- include: apiservers.yml
+- include: webservers.yml
+- include: proxyservers.yml
+- include: searchservers.yml

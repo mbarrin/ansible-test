@@ -1,0 +1,37 @@
+cluster.name: es_cayovaprod_0001
+cloud.aws.access_key: {{ aws_access_key }}
+cloud.aws.secret_key: {{ aws_secret_key }}
+cloud.aws.region: eu-west
+discovery.type: ec2
+discovery.ec2.availability_zones: eu-west-1a, eu-west-1b, eu-west-1c
+discovery.ec2.groups: prod-elasticsearch, prod-api, prod-nginx
+
+discovery.zen.ping.multicast.enabled: false
+
+discovery.zen.minimum_master_nodes: 2
+
+gateway.type: local
+gateway.s3.bucket: cayova-backup-elasticsearch
+gateway.recover_after_nodes: 1
+
+gateway.recover_after_time: 4m
+
+gateway.expected_nodes: 2
+
+bootstrap.mlockall: true
+
+path.conf: /etc/elasticsearch
+
+path.data: /var/lib/elasticsearch
+
+path.logs: /var/log/elasticsearch
+
+node.name: {{ ansible_hostname }}
+
+node.master: true
+
+node.data: true
+
+node.zone: beep {# facter_ec2_placement_availability_zone #}
+
+cluster.routing.allocation.awareness.attributes: zone

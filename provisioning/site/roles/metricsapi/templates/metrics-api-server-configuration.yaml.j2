@@ -1,0 +1,49 @@
+# =============================================================================
+# metrics-api-server template. Will crash unless host names are populated
+# Refer to https://github.com/codahale/dropwizard/blob/master/dropwizard-example/example.yml for good examples
+# =============================================================================
+
+redis:
+  host_name: ip-10-36-133-87.eu-west-1.compute.internal
+  port_number: 6379
+
+events:
+  directory: /var/log/metrics-api-server/
+  topicName: log-events
+
+topics:
+  # Temp hack to generate a valid ZK connection string, last port num is missing when I generate
+  zookeeper_connection_string: 'ip-10-210-139-79.eu-west-1.compute.internal:2181,ip-10-238-165-49.eu-west-1.compute.internal:2181,ip-10-36-150-242.eu-west-1.compute.internal:2181/kafka_cayovaprod_0002'
+  topic_name: browser_box_plugin
+
+failure_log:
+  currentLogFilename:  /var/log/metrics-api-server/metrics-api-server-delivery-failures.log
+  archivedLogFilenamePattern: /var/log/metrics-api-server/metrics-api-server-delivery-failures-%d.log.gz
+  timeZone: UTC
+
+#Temporarily adjusting log levels to INFO / DEBUG, these will be reverted back for launch
+logging:
+  level: DEBUG
+  loggers:
+    "com.viscis": DEBUG
+  console:
+    enabled: false
+  file:
+    enabled: true
+    threshold: DEBUG
+    currentLogFilename: /var/log/metrics-api-server/metrics-api-server.log
+    archivedLogFilenamePattern: /var/log/metrics-api-server/metrics-api-server-%d.log.gz
+    archivedFileCount: 50
+    timeZone: UTC
+
+http:
+  port: 8082
+  adminPort: 8083
+  requestLog:
+    file:
+      enabled: true
+      currentLogFilename: /var/log/metrics-api-server/metrics-api-server-requests.log
+      archivedLogFilenamePattern: /var/log/metrics-api-server/metrics-api-server-requests-%d.log.gz
+      archivedFileCount: 50
+      timeZone: UTC
+

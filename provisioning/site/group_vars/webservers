@@ -1,0 +1,6 @@
+log_conf: "-Dlogback.configurationFile=foo-bar-baz"
+
+perm_size: "256M"
+max_perm_size: "256M"
+min_mem: "512M"
+max_mem: "512M"

@@ -1,0 +1,12 @@
+perm_size: "256M"
+max_perm_size: "256M"
+min_mem: "512M"
+max_mem: "512M"
+
+java_home: "/usr/lib/jvm/java-7-oracle"
+
+java_opts: "-XX:PermSize={{ perm_size }} -XX:MaxPermSize={{ max_perm_size }} -Xms{{ min_mem }} -Xmx{{ max_mem }}"
+
+gc_options: "-verbosegc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintHeapAtGC -XX:+UseParallelGC -Xloggc:/var/log/tomcat7/apigc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=100 -XX:GCLogFileSize=50M"
+log_conf: ""
+catalina_opts: ""

@@ -1,0 +1,7 @@
+- hosts: logstashmaster
+  vars_files:
+    - .awsvars.yml
+  roles:
+    - { role: common }
+    - { role: devtools }
+    - { role: logstashmaster }

@@ -1,0 +1,23 @@
+- name: copy kibana tar
+  sudo: True
+  copy: src=kibana.tar.gz dest=/tmp/kibana.tar.gz
+  register: last_result
+
+- name: Extract kibana
+  sudo: True
+  command: tar xf /tmp/kibana.tar.gz -C /usr/share/nginx/www
+  when: last_result.changed
+
+- name: Add kibana site
+  sudo: True
+  copy: src=etc/nginx/sites-available/kibana dest=/etc/nginx/sites-available/kibana
+
+- name: activate sites
+  sudo: True
+  file: state=link src=/etc/nginx/sites-available/kibana dest=/etc/nginx/sites-enabled/kibana owner=root group=root
+  notify:
+    - reload nginx
+
+- name: Replace config file
+  sudo: True
+  copy: src=usr/share/nginx/www/kibana/config.js dest=/usr/share/nginx/www/kibana/config.js

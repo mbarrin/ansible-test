@@ -1,0 +1,31 @@
+- name: Creating metrics api server dir
+  sudo: True
+  file: state=directory path=/usr/local/metrics-api-server/
+
+- name: Getting metrics jar from s3
+  sudo: True
+  s3: bucket=artifacts.cayova.com object=/metrics/metrics-api-server-1.0.{{ metrics_api_server_version }}-shadow.jar dest=/usr/local/metrics-api-server/metrics-api-server.jar mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }}
+
+- name: Create metrics log folder
+  sudo: True
+  file: state=directory path=/var/log/metrics-api-server/
+
+- name: Create config folder
+  sudo: True
+  file: state=directory path=/etc/metrics/configuration/
+
+- name: Add config file
+  sudo: True
+  template: src=metrics-api-server-configuration.yaml.j2 dest=/etc/metrics/configuration/metrics-api-server-configuration.yaml
+  notify:
+    - restart metrics-api-server
+
+- name: Create metrics supervisor log folder
+  sudo: True
+  file: state=directory path=/var/log/supervisor/metrics-api-server/
+
+- name: Copy metrics supervisor config
+  sudo: True
+  copy: src=etc/supervisor/conf.d/metrics-api-server.conf dest=/etc/supervisor/conf.d/metrics-api-server.conf
+  notify:
+    - restart supervisor

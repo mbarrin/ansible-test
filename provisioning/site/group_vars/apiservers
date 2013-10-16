@@ -1,0 +1,10 @@
+catalina_opts: "-Dconf=file:/etc/dearcadh"
+log_conf: "-Dlogback.configurationFile=/etc/dearcadh/configuration/logback.groovy"
+
+perm_size: "256M"
+max_perm_size: "256M"
+min_mem: "1024M"
+max_mem: "1024M"
+
+api_server_version: 38
+api_server_file: "api-server-1.0.{{ api_server_version }}.war"

@@ -1,0 +1,7 @@
+- name: Installs supervisord
+  sudo: True
+  apt: pkg=supervisor state=latest update_cache=yes cache_valid_time=600
+
+- name: ensure supervisor is running
+  sudo: True
+  service: name=supervisor state=started

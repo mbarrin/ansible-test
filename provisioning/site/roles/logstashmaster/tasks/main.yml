@@ -1,0 +1,5 @@
+- name: Replace config file
+  sudo: True
+  template: src=etc/elasticsearch/elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  notify:
+    - restart elasticsearch

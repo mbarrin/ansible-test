@@ -1,0 +1,32 @@
+cluster.name: elasticsearch
+
+discovery.zen.ping.multicast.enabled: false
+
+discovery.zen.minimum_master_nodes: 1
+
+gateway.type: local
+gateway.recover_after_nodes: 1
+
+gateway.recover_after_time: 4m
+
+gateway.expected_nodes: 1
+
+bootstrap.mlockall: true
+
+path.conf: /etc/elasticsearch
+
+path.data: /var/lib/elasticsearch
+
+path.logs: /var/log/elasticsearch
+
+node.name: {{ ansible_hostname }}
+
+node.master: true
+
+node.data: true
+
+node.local: true
+
+node.zone: beep {# facter_ec2_placement_availability_zone #}
+
+cluster.routing.allocation.awareness.attributes: zone

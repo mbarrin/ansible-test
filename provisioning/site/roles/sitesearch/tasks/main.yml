@@ -1,0 +1,16 @@
+- name: Install Cloud AWS Plugin
+  sudo: True
+  command: /usr/share/elasticsearch/bin/plugin -install elasticsearch/elasticsearch-cloud-aws/1.15.0
+
+- name: Add config file
+  sudo: True
+  template: src=etc/elasticsearch/elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml
+  notify:
+    - restart elasticsearch
+
+- name: Add logging file
+  sudo: True
+  copy: src=etc/elasticsearch/logging.yml dest=/etc/elasticsearch/logging.yml
+  notify:
+    - restart elasticsearch
+

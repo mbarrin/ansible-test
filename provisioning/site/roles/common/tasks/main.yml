@@ -1,0 +1,14 @@
+- name: install pip
+  sudo: True
+  apt: pkg=python-pip state=latest update_cache=yes cache_valid_time=600
+
+- name: Installs the boto dependency for s3
+  sudo: True
+  pip: name=boto
+
+- name: install prereqs
+  apt: pkg={{ item }} state=latest update_cache=yes
+  sudo: True
+  with_items:
+    - python-apt
+    - python-pycurl

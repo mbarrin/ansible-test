@@ -1,0 +1,32 @@
+---
+
+- name: Create logstash user account
+  sudo: True
+  user: name=logstash createhome=no
+
+- name: Make logstash bin dir
+  sudo: True
+  file: path=/usr/local/logstash/tmp owner=logstash group=root state=directory
+
+- name: Make logstash config dir
+  sudo: True
+  file: path=/etc/logstash/agent/config owner=logstash group=root state=directory
+
+- name: Make log folder
+  sudo: True
+  file: path=/var/log/supervisor/logstash owner=root group=root state=directory
+
+- name: Make other log folder
+  sudo: True
+  file: path=/var/log/logstash owner=logstash group=root state=directory
+
+- name: Install logstash jar
+  sudo: True
+  s3: bucket=cayova-system-artifacts object=/logstash/files/logstash-1.2.1-flatjar.jar dest=/usr/local/logstash/logstash.jar mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }} overwrite=True
+
+- name: Copy logstash supervisor conf file
+  sudo: True
+  copy: src=etc/supervisor/conf.d/logstash.conf dest=/etc/supervisor/conf.d/logstash.conf owner=root group=root mode=0644
+  notify:
+      - restart supervisor
+

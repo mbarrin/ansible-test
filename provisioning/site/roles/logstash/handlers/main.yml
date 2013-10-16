@@ -1,0 +1,11 @@
+- name: restart logstash
+  sudo: True
+  supervisorctl: name=logstash state=restarted
+
+- name: start logstash
+  sudo: True
+  supervisorctl: name=logstash state=started
+
+- name: stop logstash
+  sudo: True
+  supervisorctl: name=logstash state=stopped

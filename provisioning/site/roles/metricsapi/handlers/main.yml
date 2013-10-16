@@ -1,0 +1,11 @@
+- name: restart metrics-api-server
+  sudo: True
+  supervisorctl: name=metrics-api-server state=restarted
+
+- name: start metrics-api-server
+  sudo: True
+  supervisorctl: name=metrics-api-server state=started
+
+- name: stop metrics-api-server
+  sudo: True
+  supervisorctl: name=metrics-api-server state=stopped

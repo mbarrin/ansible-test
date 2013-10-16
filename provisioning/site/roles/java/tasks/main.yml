@@ -1,0 +1,29 @@
+- name: Adding java apt file
+  sudo: True
+  apt_repository: repo="ppa:webupd8team/java"
+  tags: java
+
+- name: Accept Java License
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+  tags: java
+
+- name: Accept Java License 2
+  shell: echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+  tags: java
+
+- name: Install Java
+  sudo: True
+  apt: pkg=oracle-java7-installer={{ java_version }} update_cache=yes force=yes
+  tags: java
+
+- name: Replaces US policy jar
+  sudo: True
+  s3: bucket=cayova-system-artifacts object=/java/files/files/US_export_policy.jar dest=/usr/lib/jvm/java-7-oracle/jre/lib/security/US_export_policy.jar mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }} overwrite=True
+
+- name: Replaces local policy jar
+  sudo: True
+  s3: bucket=cayova-system-artifacts object=java/files/files/local_policy.jar dest=/usr/lib/jvm/java-7-oracle/jre/lib/security/local_policy.jar mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }} overwrite=True
+
+- name: Install bouncycastle jar
+  sudo: True
+  s3: bucket=cayova-system-artifacts object=java/files/files/bcprov-jdk15-1.45.jar dest=/usr/lib/jvm/java-7-oracle/jre/lib/ext/bcprov-jdk15-1.45.jar mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }} overwrite=True

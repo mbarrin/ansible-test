@@ -1,0 +1,35 @@
+- name: Install es deb
+  sudo: True
+  s3: bucket=cayova-system-artifacts object=/elasticsearch/files/files/{{ es_deb }} dest=/home/{{ user }}/{{es_deb}} mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }} overwrite=True
+  register: last_result
+
+- name: Install deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ es_deb }}
+  when: last_result.changed
+
+- name: Disable elasticsearch service
+  sudo: True
+  service: name=elasticsearch enabled=no state=stopped
+
+- name: Create elasticsearch supervisor log folder
+  sudo: True
+  file: path=/var/log/supervisor/elasticsearch/ state=directory
+
+- name: Copy elasticsearch supervisor config
+  sudo: True
+  copy: src=etc/supervisor/conf.d/elasticsearch.conf dest=/etc/supervisor/conf.d/elasticsearch.conf
+  notify:
+    - restart supervisor
+
+- name: Install ES Head
+  sudo: True
+  command: /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+
+- name: Install ES Paramedic
+  sudo: True
+  command: /usr/share/elasticsearch/bin/plugin -install karmi/elasticsearch-paramedic
+
+- name: Install ES BigDesk
+  sudo: True
+  command: /usr/share/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk

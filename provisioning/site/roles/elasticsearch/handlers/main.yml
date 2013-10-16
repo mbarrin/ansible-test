@@ -1,0 +1,11 @@
+- name: restart elasticsearch
+  sudo: True
+  supervisorctl: name=elasticsearch state=restarted
+
+- name: start elasticsearch
+  sudo: True
+  supervisorctl: name=elasticsearch state=started
+
+- name: stop elasticsearch
+  sudo: True
+  supervisorctl: name=elasticsearch state=stopped

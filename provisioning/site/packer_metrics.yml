@@ -1,0 +1,14 @@
+#local.yml
+---
+- hosts: 127.0.0.1
+  user: ubuntu
+  connection: local
+  vars:
+      user: ubuntu
+      metrics_api_server_version: 68
+  vars_files:
+    - .awsvars.yml
+  roles:
+    - common
+    - devtools
+    - metricsapi

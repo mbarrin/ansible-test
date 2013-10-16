@@ -1,0 +1,11 @@
+- name: restart tomcat7
+  sudo: True
+  service: name=tomcat7 state=restarted
+
+- name: start tomcat7
+  sudo: True
+  service: name=tomcat7 state=started
+
+- name: stop tomcat7
+  sudo: True
+  service: name=tomcat7 state=stopped

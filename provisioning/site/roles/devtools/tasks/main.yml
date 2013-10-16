@@ -1,0 +1,32 @@
+- name: installing vim, zsh, git, tmux
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=600
+  sudo: True
+  with_items:
+    - vim-nox
+    - zsh
+    - git
+    - tmux
+    - curl
+
+- name: Changing the default shell to zsh
+  sudo: True
+  user: shell=/bin/zsh name={{ user }}
+
+- file: path=~/github/tpope state=directory owner={{ user }} group={{ user }}
+- file: path=~/github/mbarrin state=directory owner={{ user }} group={{ user }}
+- file: path=~/github/mbarrin/.vim state=directory owner={{ user }} group={{ user }}
+
+- git: repo=https://github.com/tpope/vim-pathogen dest=~/github/tpope/vim-pathogen
+- git: repo=https://github.com/mbarrin/oh-my-zsh dest=~/github/mbarrin/oh-my-zsh
+- git: repo=https://github.com/mbarrin/vimplugins dest=~/github/mbarrin/vimplugins
+  tags:
+    - foo
+- git: repo=https://github.com/mbarrin/dotfiles dest=~/github/mbarrin/dotfiles
+
+- file: path=~/.vim owner={{ user }} group={{ user }} state=directory
+- file: src=~/github/tpope/vim-pathogen/autoload dest=~/.vim/autoload owner={{ user }} group={{ user }} state=link
+- file: src=~/github/mbarrin/oh-my-zsh dest=~/.oh-my-zsh owner={{ user }} group={{ user }} state=link
+- file: src=~/github/mbarrin/vimplugins dest=~/.vim/bundle owner={{ user }} group={{ user }} state=link
+- file: src=~/github/mbarrin/dotfiles/vimrc dest=~/.vimrc owner={{ user }} group={{ user }} state=link
+- file: path=~/.zshrc state=absent
+- file: src=~/github/mbarrin/dotfiles/zshrc dest=~/.zshrc owner={{ user }} group={{ user }} state=link

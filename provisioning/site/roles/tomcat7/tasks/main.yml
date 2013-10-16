@@ -1,0 +1,13 @@
+- name: install tomcat7
+  sudo: True
+  apt: pkg=tomcat7 state=latest update_cache=yes cache_valid_time=600
+
+- name: ensure tomcat7 is running
+  sudo: True
+  service: name=tomcat7 state=started
+
+- name: set tomcat7 defaults file
+  sudo: True
+  template: src=etc/default/tomcat7.j2 dest=/etc/default/tomcat7
+  notify:
+    - restart tomcat7
