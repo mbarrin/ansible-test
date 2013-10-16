@@ -1,5 +1,5 @@
 vars_files:
-  - .awsvars.yml
+  - awsvars.yml
 - include: logstashmaster.yml
 - include: apiservers.yml
 - include: webservers.yml
