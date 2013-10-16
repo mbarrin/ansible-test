@@ -23,6 +23,9 @@
         {
             "type": "ansible-local",
             "playbook_file": "provisioning/site/packer_metrics.yml",
+            "playbook_paths": [
+                "provisioning/site/awsvars.yml"
+            ],
             "role_paths": [
                 "provisioning/site/roles/common",
                 "provisioning/site/roles/supervisor",

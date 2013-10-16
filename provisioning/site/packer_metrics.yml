@@ -7,7 +7,7 @@
       user: ubuntu
       metrics_api_server_version: 68
   vars_files:
-    - awsvars.yml
+    - playbooks/awsvars.yml
   roles:
     - common
     - devtools
