@@ -1,0 +1,11 @@
+- name: Install diamond
+  sudo: True
+  pip: name=diamond state=present
+
+- name: Put up config file
+  sudo: True
+  copy: src=diamond.conf dest=/etc/diamond/diamond.conf owner=root group=root
+
+- name: Start Diamond
+  sudo: True
+  command: /usr/bin/diamond

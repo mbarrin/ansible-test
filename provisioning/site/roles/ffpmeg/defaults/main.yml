@@ -1,0 +1,7 @@
+acc_deb: "fdk-aac_201304101407-git-1_amd64.deb"
+ffmpeg_deb: "ffmpeg_201304101438-git-1_amd64.deb"
+libopus_deb: "libopus_201304101414-git-1_amd64.deb"
+libvpx_deb: "libvpx_201304101411-git-1_amd64.deb"
+qtfast_deb: "qt-faststart_201304110953-git-1_amd64.deb"
+x264_deb: "x264_0.130.2+gitc832fe9-1_amd64.deb"
+yasm_deb: "yasm_1.2.0-1_amd64.deb"

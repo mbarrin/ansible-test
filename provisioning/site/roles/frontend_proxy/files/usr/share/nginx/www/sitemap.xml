@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>https://cayova.com/</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/timeline</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/privacy</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/termsofuse</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/rulesofmembership</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/faq</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/cayovaboxfaq</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/cayovaboxabout</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/cayovaboxhow</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/register</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/help/forgotpassword</loc>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/timeline</loc>
+  <changefreq>always</changefreq>
+</url>
+<url>
+  <loc>https://cayova.com/opportunities</loc>
+  <changefreq>weekly</changefreq>
+</url>
+</urlset>

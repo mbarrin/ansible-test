@@ -1,0 +1,9 @@
+input {
+  file {
+    path => "/var/log/tomcat7/cayova-tomcat.log"
+    codec => multiline {
+      pattern => "^\s"
+      what => "previous"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+output {
+  elasticsearch_http {
+    {% for host in groups['logstashmaster'] %}
+        host => "{{ host }}"
+    {% endfor %}
+  }
+}

@@ -1,0 +1,29 @@
+- name: copy base config file
+  sudo: True
+  template: src=etc/nginx/nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify:
+    - reload nginx
+
+- name: copy servers config file
+  sudo: True
+  template: src=etc/nginx/sites-available/default.j2 dest=/etc/nginx/sites-available/default
+  notify:
+    - reload nginx
+
+- name: activate sites
+  sudo: True
+  file: src=/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default owner=root group=root state=link
+  notify:
+    - reload nginx
+
+- name: adds site map
+  sudo: True
+  copy: src=usr/share/nginx/www/sitemap.xml dest=/usr/share/nginx/www/sitemap.xml owner=nobody group=root
+
+- name: adds robots.txt
+  sudo: True
+  copy: src=usr/share/nginx/www/robots.txt dest=/usr/share/nginx/www/robots.txt owner=nobody group=root
+
+- name: adds mime.types
+  sudo: True
+  copy: src=etc/nginx/mime.types dest=/etc/nginx/mime.types owner=nobody group=root

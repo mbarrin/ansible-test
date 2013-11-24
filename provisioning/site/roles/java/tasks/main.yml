@@ -13,7 +13,7 @@
 
 - name: Install Java
   sudo: True
-  apt: pkg=oracle-java7-installer={{ java_version }} update_cache=yes force=yes
+  apt: pkg=oracle-java7-installer state=latest update_cache=yes force=yes
   tags: java
 
 - name: Replaces US policy jar

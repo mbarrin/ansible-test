@@ -1,0 +1,40 @@
+- name: ensure monitoring keys
+  sudo: True
+  apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc state=present
+
+- name: ensure rabbitmq repo
+  sudo: True
+  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present update_cache=yes
+
+- name: ensure rabbitmq package
+  sudo: True
+  apt: pkg={{ item }} state=latest install_recommends=no
+  with_items:
+    - rabbitmq-server
+
+- name: ensure rabbitmq plugins
+  sudo: True
+  rabbitmq_plugin: names=rabbitmq_management state=enabled
+
+- name: ensure rabbitmq ssl folder
+  sudo: True
+  file: state=directory path=/etc/rabbitmq/ssl
+
+- name: ensure rabbitmq ssl files
+  sudo: True
+  copy: src={{ item }} dest=/etc/rabbitmq/ssl/{{ item }}
+  with_items:
+    - cacert.pem
+    - server_cert.pem
+    - server_key.pem
+
+- name: ensure rabbitmq configuration
+  sudo: True
+  copy: src=rabbitmq.config dest=/etc/rabbitmq/rabbitmq.config mode=0644 owner=root group=root
+  notify:
+    - restart rabbitmq-server
+  tags: monitoring
+
+- name: start rabbitmq server
+  sudo: True
+  service: name=rabbitmq-server state=started

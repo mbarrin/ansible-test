@@ -1,0 +1,8 @@
+User-agent: *
+
+Disallow: /profiles/
+Disallow: /hubs/
+Disallow: /contacts/
+Disallow: /contents/
+Disallow: /dashboard/
+Disallow: /api/

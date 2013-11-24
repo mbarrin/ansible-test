@@ -1,0 +1,7 @@
+- name: install redis
+  sudo: True
+  apt: pkg=redis-server state=latest update_cache=yes cache_valid_time=600
+
+- name: ensure redis is running
+  sudo: True
+  service: name=redis-server state=started

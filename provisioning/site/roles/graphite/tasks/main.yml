@@ -1,0 +1,86 @@
+- name: Install prerequisites
+  sudo: True
+  yum: name={{ item }} state=latest
+  with_items:
+    - python-devel
+    - gcc
+    - pycairo
+    - MySQL-python
+
+- name: Install uwsgi
+  sudo: True
+  pip: name=uwsgi state=present
+
+- name: Install graphite
+  sudo: True
+  pip: name=graphite-web state=present
+
+- name: Install carbon
+  sudo: True
+  pip: name=carbon state=present
+
+- name: Install whisper
+  sudo: True
+  pip: name=whisper state=present
+
+- name: Install Twisted 11.1.0
+  sudo: True
+  pip: name=Twisted version=11.1.0 state=present
+
+- name: Link uswgi file
+  sudo: True
+  file: state=link src=/opt/graphite/conf/graphite.wsgi.example dest=/opt/graphite/conf/wsgi.py
+
+- name: Link carbon cache file
+  sudo: True
+  file: state=link src=/opt/graphite/conf/carbon.conf.example dest=/opt/graphite/conf/carbon.conf
+  notify:
+    - restart nginx
+
+- name: Add nginx conf
+  sudo: True
+  copy: src=etc/nginx/conf.d/graphite.conf dest=/etc/nginx/conf.d/graphite.conf
+
+- name: Add carbon cache init script
+  sudo: True
+  copy: src=etc/init.d/carbon dest=/etc/init.d/carbon owner=root group=root mode=0755
+
+- name: Enable carbon 1
+  sudo: True
+  command: chkconfig --add carbon
+
+- name: Enable carbon 2
+  sudo: True
+  command: chkconfig carbon on
+
+- name: Start carbon
+  sudo: True
+  service: name=carbon state=started
+
+- name: Add uwsgi default file
+  sudo: True
+  copy: src=etc/default/uwsgi dest=/etc/default/uwsgi owner=root group=root
+
+- name: Add uwsgi init script
+  sudo: True
+  copy: src=etc/init.d/uwsgi dest=/etc/init.d/uwsgi owner=root group=root mode=0755
+
+- name: Create uwsgi folder
+  sudo: True
+  file: state=directory path=/etc/uwsgi/apps-enabled
+
+- name: Add uwsgi graphite script
+  sudo: True
+  copy: src=etc/uwsgi/graphite.uwsgi dest=/etc/uwsgi/apps-enabled/graphite.uwsgi owner=root group=root mode=0755
+
+- name: Enable uwsgi 1
+  sudo: True
+  command: chkconfig --add uwsgi
+
+- name: Enable uwsgi 2
+  sudo: True
+  command: chkconfig uwsgi on
+
+- name: Start uwsgi
+  sudo: True
+  service: name=uwsgi state=started

@@ -1,0 +1,29 @@
+---
+
+- name: grabs the dearcadh api server
+  sudo: True
+  s3: bucket=artifacts.cayova.com object=/api/{{ api_server_file }} dest=/var/lib/tomcat7/webapps/ROOT.war mode=get aws_access_key={{ aws_access_key }} aws_secret_key={{ aws_secret_key }}
+  register: last_result
+
+- name: removes old WAR dir
+  sudo: True
+  file: path=/var/lib/tomcat7/webapps/ROOT state=absent
+  when: last_result.changed
+  notify:
+    - restart tomcat7
+
+- name: Adding logback file
+  sudo: True
+  copy: src=etc/dearcadh/configuration/logback.groovy dest=/etc/dearcadh/configuration/logback.groovy owner=root group=root mode=0644
+
+- name: Logstash input
+  sudo: True
+  copy: src=etc/logstash/agent/config/input_file_cayova-tomcat.j2 dest=/etc/logstash/agent/config/input_file_cayova-tomcat owner=logstash
+  notify:
+    - restart logstash
+
+- name: Logstash output
+  sudo: True
+  template: src=etc/logstash/agent/config/output_elasticsearch.j2 dest=/etc/logstash/agent/config/output_elasticsearch owner=logstash
+  notify:
+    - restart logstash

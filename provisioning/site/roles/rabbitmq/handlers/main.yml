@@ -1,0 +1,11 @@
+- name: restart rabbitmq-server
+  sudo: True
+  service: name=rabbitmq-server state=restarted
+
+- name: start rabbitmq-server
+  sudo: True
+  service: name=rabbitmq-server state=started
+
+- name: stop rabbitmq-server
+  sudo: True
+  service: name=rabbitmq-server state=stopped

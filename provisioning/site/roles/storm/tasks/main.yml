@@ -1,0 +1,38 @@
+- name: Installing requirements from apt
+  sudo: True
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - unzip
+    - libzmq1
+
+- name: Add storm user
+  sudo: True
+  user: name=storm home=/usr/local/storm
+
+- name: Make log folder
+  sudo: True
+  file: state=directory path=/var/log/storm owner=storm group=storm
+
+- name: Make other log folder
+  sudo: True
+  file: state=directory path=/var/log/supervisor/storm
+
+- name: Copy jzmq deb
+  sudo: True
+  copy: src={{ jzmq_deb }} dest=/home/{{ user }}
+  register: jzmqdeb
+
+- name: Install jzmq deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ jzmq_deb }}
+  when: jzmqdeb.changed
+
+- name: Copy storm deb
+  sudo: True
+  copy: src={{ storm_deb }} dest=/home/{{ user }}
+  register: stormdeb
+
+- name: Install storm deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ storm_deb }}
+  when: stormdeb.changed

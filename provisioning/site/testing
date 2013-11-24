@@ -13,6 +13,12 @@
 [logstashmaster]
 192.168.111.14
 
+[sensumaster]
+192.168.111.15
+
+[intercom]
+opstest.intercom.io
+
 #[vagrant:children]
 #webservers
 #apiservers

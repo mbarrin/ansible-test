@@ -1,0 +1,4 @@
+- hosts: intercom
+  user: ec2-user
+  roles:
+    - { role: graphite }

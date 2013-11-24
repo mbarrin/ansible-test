@@ -1,0 +1,64 @@
+---
+
+- name: copy acc deb
+  copy: src={{ acc_deb }} dest=/home/{{ user }}/
+  register: acc_deb_installed
+
+- name: Install acc deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ acc_deb }}
+  when: acc_deb_installed.changed
+
+- name: copy libopus deb
+  copy: src={{ libopus_deb }} dest=/home/{{ user }}/
+  register: libopus_deb_installed
+
+- name: Install libopus deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ libopus_deb }}
+  when: libopus_deb_installed.changed
+
+- name: copy libvpx deb
+  copy: src={{ libvpx_deb }} dest=/home/{{ user }}/
+  register: libvpx_deb_installed
+
+- name: Install libvpx deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ libvpx_deb }}
+  when: libvpx_deb_installed.changed
+
+- name: copy qtfast deb
+  copy: src={{ qtfast_deb }} dest=/home/{{ user }}/
+  register: qtfast_deb_installed
+
+- name: Install qtfast deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ qtfast_deb }}
+  when: qtfast_deb_installed.changed
+
+- name: copy x264 deb
+  copy: src={{ x264_deb }} dest=/home/{{ user }}/
+  register: x264_deb_installed
+
+- name: Install x264 deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ x264_deb }}
+  when: x264_deb_installed.changed
+
+- name: copy yasm deb
+  copy: src={{ yasm_deb }} dest=/home/{{ user }}/
+  register: yasm_deb_installed
+
+- name: Install yasm deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ yasm_deb }}
+  when: yasm_deb_installed.changed
+
+- name: copy ffmpeg deb
+  copy: src={{ ffmpeg_deb }} dest=/home/{{ user }}/
+  register: ffmpeg_deb_installed
+
+- name: Install ffmpeg deb
+  sudo: True
+  command: dpkg -i /home/{{ user }}/{{ ffmpeg_deb }}
+  when: ffmpeg_deb_installed.changed

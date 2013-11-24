@@ -58,6 +58,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define "sensu" do |sensu|
+    sensu.vm.network :private_network, ip: "192.168.111.15"
+    sensu.vm.hostname = "sensu"
+    sensu.vm.provision "ansible" do |ansible|
+      ansible.playbook = "provisioning/site/sensumaster.yml"
+      ansible.inventory_path = "provisioning/site/testing"
+      ansible.verbose = true
+    end
+  end
+
   config.vm.provider :virtualbox do |vb|
         vb.customize ["modifyvm", :id, "--memory", "1024"]
   end

@@ -10,5 +10,4 @@
     - playbooks/awsvars.yml
   roles:
     - common
-    - devtools
     - metricsapi

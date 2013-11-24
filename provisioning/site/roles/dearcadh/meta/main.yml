@@ -1,0 +1,6 @@
+dependencies:
+  - { role: tomcat7 }
+  - { role: cayova_config }
+  - { role: logstash }
+  - { role: ffmpeg }
+  - { role: imagemagick }
